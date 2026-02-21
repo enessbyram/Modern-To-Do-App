@@ -9,6 +9,7 @@ export default function Home() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("Tümü");
   const [isMounted, setIsMounted] = useState(false);
+  const [editingTodo, setEditingTodo] = useState(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("my-next-todos");
@@ -23,8 +24,19 @@ export default function Home() {
   }, [todos, isMounted]);
 
   const addTodo = (text) => {
-    const newTodo = { id: Date.now(), text, status: "active" };
-    setTodos([...todos, newTodo]);
+    if (editingTodo) {
+      setTodos(todos.map(t => 
+        t.id === editingTodo.id ? { ...t, text: text } : t
+      ));
+      setEditingTodo(null);
+    } else {
+      const newTodo = { id: Date.now(), text, status: "active" };
+      setTodos([...todos, newTodo]);
+    }
+  };
+
+  const startEdit = (todo) => {
+    setEditingTodo(todo);
   };
 
   const toggleStatus = (id) => {
@@ -70,7 +82,11 @@ export default function Home() {
         />
 
         {(filter === "Tümü" || filter === "Yapılacaklar") && (
-          <TodoInput onAdd={addTodo} />
+          <TodoInput 
+            onAdd={addTodo} 
+            editingTodo={editingTodo} 
+            onCancelEdit={() => setEditingTodo(null)} 
+          />
         )}
 
         <div className="h-60 overflow-y-auto pr-2 custom-scrollbar">
@@ -79,6 +95,7 @@ export default function Home() {
             onToggle={toggleStatus} 
             onDelete={deleteTodo} 
             onRestore={restoreTodo}
+            onEdit={startEdit}
             currentFilter={filter}
           />
         </div>

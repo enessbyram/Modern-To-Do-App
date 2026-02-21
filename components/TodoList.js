@@ -1,4 +1,4 @@
-export default function TodoList({ todos, onToggle, onDelete, onRestore, currentFilter }) {
+export default function TodoList({ todos, onToggle, onDelete, onRestore, onEdit, currentFilter }) {
   if (todos.length === 0) {
     return (
       <div className="py-10 text-center">
@@ -18,9 +18,9 @@ export default function TodoList({ todos, onToggle, onDelete, onRestore, current
               : "bg-white dark:bg-zinc-900 border-zinc-100 dark:border-zinc-800 shadow-sm hover:shadow-md"
           }`}
         >
-          <span className="text-sm font-semibold tracking-tight">{todo.text}</span>
+          <span className="text-sm font-semibold tracking-tight max-w-[60%] truncate">{todo.text}</span>
           
-          <div className="flex gap-1">
+          <div className="flex gap-1 items-center">
             {todo.status === "deleted" ? (
               <button 
                 onClick={() => onRestore(todo.id)}
@@ -30,6 +30,13 @@ export default function TodoList({ todos, onToggle, onDelete, onRestore, current
               </button>
             ) : (
               <>
+                <button 
+                  onClick={() => onEdit(todo)}
+                  className="p-2 text-zinc-300 hover:text-amber-500 transition-colors"
+                  title="Düzenle"
+                >
+                  ✏️
+                </button>
                 <button 
                   onClick={() => onToggle(todo.id)}
                   className={`p-2 rounded-lg transition-colors ${
