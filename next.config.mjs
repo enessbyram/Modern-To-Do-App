@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
-  reactCompiler: true,
+  output: 'export', 
+  reactStrictMode: true,
+  reactCompiler: true
 };
 
 export default nextConfig;
