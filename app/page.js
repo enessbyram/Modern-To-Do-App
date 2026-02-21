@@ -73,7 +73,7 @@ export default function Home() {
           <TodoInput onAdd={addTodo} />
         )}
 
-        <div className="h-112.5 overflow-y-auto pr-2 custom-scrollbar">
+        <div className="h-60 overflow-y-auto pr-2 custom-scrollbar">
           <TodoList 
             todos={filteredTodos} 
             onToggle={toggleStatus} 
