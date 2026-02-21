@@ -51,7 +51,7 @@ export default function Home() {
   if (!isMounted) return null;
 
   return (
-    <main className="flex min-h-screen items-start justify-center p-4 pt-10 md:pt-20">
+    <main className="flex min-h-screen items-start justify-center p-4 pt-10 md:pt-20 bg-zinc-50 dark:bg-black">
       <div className="w-full max-w-2xl bg-white dark:bg-zinc-950 p-8 rounded-[2.5rem] shadow-2xl border border-zinc-100 dark:border-zinc-900">
         
         <header className="text-center mb-8">
@@ -73,13 +73,15 @@ export default function Home() {
           <TodoInput onAdd={addTodo} />
         )}
 
-        <TodoList 
-          todos={filteredTodos} 
-          onToggle={toggleStatus} 
-          onDelete={deleteTodo} 
-          onRestore={restoreTodo}
-          currentFilter={filter}
-        />
+        <div className="h-112.5 overflow-y-auto pr-2 custom-scrollbar">
+          <TodoList 
+            todos={filteredTodos} 
+            onToggle={toggleStatus} 
+            onDelete={deleteTodo} 
+            onRestore={restoreTodo}
+            currentFilter={filter}
+          />
+        </div>
 
         <footer className="mt-10 text-center">
           <p className="text-[10px] text-zinc-300 dark:text-zinc-700 font-medium">
